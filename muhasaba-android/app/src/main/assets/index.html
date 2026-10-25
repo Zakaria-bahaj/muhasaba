@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d6b52">
+<meta name="mobile-web-app-capable" content="yes">
+<title>محاسبة النفس</title>
+<style>
+:root{--bg:#f6f3ea;--card:#fffdf7;--tx:#1d2b26;--mut:#6b7a73;--em:#0d6b52;--em2:#14a37f;--gold:#c9a24a;--bd:#e6dfcb;--sh:0 4px 18px rgba(13,107,82,.09)}
+[data-theme=dark]{--bg:#0b1512;--card:#12221d;--tx:#e8efe9;--mut:#8da39a;--em:#2fc79d;--em2:#14a37f;--gold:#e0b95c;--bd:#1f352d;--sh:0 4px 18px rgba(0,0,0,.4)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic","Geeza Pro",system-ui,sans-serif;padding:env(safe-area-inset-top,0px) 0 calc(78px + env(safe-area-inset-bottom,0px));transition:background .3s,color .3s}
+.wrap{max-width:720px;margin:0 auto;padding:12px 14px}
+.hero{background:linear-gradient(135deg,#0a5742,#14a37f);color:#fff;border-radius:22px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:auto auto -40px -40px;width:150px;height:150px;border-radius:50%;border:2px solid rgba(255,255,255,.15)}
+.hero h1{margin:0;font-size:20px}.hero small{opacity:.85;display:block;margin-top:2px}
+.ring{position:relative;width:84px;height:84px;flex:none}.ring svg{transform:rotate(90deg) scaleX(-1)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:19px}
+.datebar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0}
+.datebar button,.btn{background:var(--card);border:1px solid var(--bd);color:var(--tx);border-radius:12px;padding:8px 14px;font:inherit;cursor:pointer}
+.datebar div{text-align:center;flex:1}.datebar .g{font-weight:700}.datebar .h{color:var(--gold);font-size:13px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px;margin:12px 0;box-shadow:var(--sh)}
+.card h2{margin:0 0 10px;font-size:16px;color:var(--em);display:flex;justify-content:space-between;align-items:center}
+.card h2 span{font-size:12px;color:var(--mut);font-weight:400}
+.row{display:flex;align-items:center;gap:10px;padding:10px 6px;border-top:1px solid var(--bd);cursor:pointer;user-select:none}
+.row:first-of-type{border-top:0}
+.row .n{flex:1}.row .n small{display:block;color:var(--mut);font-size:12px}
+.chk{width:28px;height:28px;border-radius:9px;border:2px solid var(--bd);display:grid;place-items:center;color:#fff;font-size:15px;transition:.2s;flex:none}
+.on .chk{background:var(--em);border-color:var(--em);transform:scale(1.05)}
+.cnt{min-width:64px;text-align:center;border-radius:12px;padding:6px 10px;background:var(--bg);border:1px solid var(--bd);font-weight:700;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.cnt i{position:absolute;inset:0 auto 0 0;background:rgba(20,163,127,.22);z-index:0}.cnt s{text-decoration:none;position:relative;z-index:1}
+.done .cnt{background:var(--em);color:#fff;border-color:var(--em)}
+.rs{border:0;background:none;color:var(--mut);font-size:18px;cursor:pointer}
+table{width:100%;border-collapse:collapse;text-align:center}
+th{font-size:12px;color:var(--mut);font-weight:600;padding:4px 2px}td{padding:6px 2px;border-top:1px solid var(--bd)}
+td:first-child{text-align:right;font-weight:700;font-size:14px}
+td .chk{margin:auto;cursor:pointer}td.na{color:var(--bd)}
+.quote{background:linear-gradient(135deg,rgba(201,162,74,.15),rgba(20,163,127,.1));border:1px solid var(--gold);border-radius:18px;padding:16px;margin:12px 0;text-align:center;animation:fade .6s}
+.quote p{margin:0 0 8px;font-size:17px;line-height:1.9;font-family:"Amiri","Noto Naskh Arabic",serif}.quote small{color:var(--gold)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+nav{position:fixed;inset:auto 0 0 0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:9}
+nav button{flex:1;background:none;border:0;color:var(--mut);font:inherit;font-size:12px;padding:6px;cursor:pointer;border-radius:12px}
+nav button span{display:block;font-size:20px}nav .a{color:var(--em);background:rgba(20,163,127,.12);font-weight:700}
+input[type=text],input[type=number],textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:10px;font:inherit;margin:4px 0}
+.pri{background:var(--em);color:#fff;border:0;border-radius:12px;padding:10px 16px;font:inherit;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{text-align:center;padding:12px;background:var(--bg);border-radius:14px}.stat b{display:block;font-size:24px;color:var(--em)}.stat small{color:var(--mut)}
+.heat{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}.heat i{aspect-ratio:1;border-radius:6px;background:var(--bd)}
+.bars{display:flex;align-items:flex-end;gap:8px;height:150px}.bars div{flex:1;text-align:center;font-size:11px;color:var(--mut);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.bars u{display:block;background:linear-gradient(var(--em2),var(--em));border-radius:8px 8px 3px 3px;min-height:3px;transition:height .6s;text-decoration:none}.bars b{color:var(--tx);font-size:11px}
+.hide{display:none}.tools{display:flex;gap:8px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<nav id="nav"></nav>
+<script>
+"use strict";
+const K="muhasaba_v1",$=s=>document.querySelector(s);
+let S={theme:null,custom:[],days:{},notes:{}},mem=false,date=new Date(),tab="today",qi=Math.floor(Math.random()*99);
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){mem=true}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){mem=true}};
+const ds=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const PR=[["fajr","الفجر",1,0],["dhuhr","الظهر",1,1],["asr","العصر",1,0],["maghrib","المغرب",0,1],["isha","العشاء",0,1]];
+// [id,name,sub,target]
+const QU=[["q_read","ورد القراءة اليومي","ولو صفحة بتدبّر",1],["q_mem","الحفظ","آيات جديدة",1],["q_rev","المراجعة","تثبيت المحفوظ",1],["q_baq","سورة البقرة","وردك منها اليوم",1]];
+const AD=[["a_m","أذكار الصباح","",1],["a_e","أذكار المساء","",1],["a_s","أذكار النوم","",1],["a_ist","الاستغفار","أستغفر الله وأتوب إليه",100],["a_sal","الصلاة على النبي ﷺ","اللهم صلّ وسلّم على نبينا محمد",100],["a_tas","سبحان الله وبحمده","سبحان الله العظيم",100],["a_hq","لا حول ولا قوة إلا بالله","كنز من كنوز الجنة",100]];
+const JN=[["j_qiy","قيام الليل","ولو ركعتين",1],["j_wit","الوتر","ختام صلاة الليل",1],["j_duh","صلاة الضحى","ركعتان فأكثر",1],["j_mulk","سورة الملك","المنجية من عذاب القبر",1],["j_kaf","سورة الكافرون","براءة من الشرك",1]];
+const Q=[["من حاسب نفسه في الدنيا خفّ حسابه يوم القيامة.","من أقوال السلف"],["الكيّس من دان نفسه وعمل لما بعد الموت.","حديث شريف"],["حاسبوا أنفسكم قبل أن تُحاسبوا، وزنوها قبل أن تُوزنوا.","عمر بن الخطاب رضي الله عنه"],["أحبّ الأعمال إلى الله أدومها وإن قلّ.","حديث متفق عليه"],["ما أخلصتَ في عمل إلا فتح الله لك فيه بابًا لا يُغلق.","من فقه النفس"],["القلب كالمرآة؛ يجلوه الذكر ويعلوه الران بالغفلة.","من فقه النفس"],["بادر باليوم؛ فإن الغد لا تضمنه، وما مضى لا يعود.","من فقه النفس"],["اتّقِ الله حيثما كنت، وأتبع السيئة الحسنة تمحُها.","حديث حسن"],["ليس الشأن أن تبدأ، بل أن تستمر؛ فالقليل الدائم يبني جبلًا.","من فقه النفس"],["ألا بذكر الله تطمئن القلوب.","سورة الرعد"],["اسأل نفسك: ماذا قدّمتُ لغدٍ، وما الذي أُلهيني اليوم؟","من فقه النفس"],["استعن بالله ولا تعجز؛ فخطوة صادقة اليوم خير من عزم مؤجَّل.","من فقه النفس"]];
+const isMT=d=>[1,4].includes(d.getDay());
+function groups(d){const g=[];
+ g.push({k:"fast",t:"الصيام",items:isMT(d)?[["f_mt",d.getDay()==1?"صيام يوم الاثنين":"صيام يوم الخميس","تُعرض فيه الأعمال على الله",1]]:[]});
+ g.push({k:"q",t:"القرآن الكريم",items:QU},{k:"a",t:"الأذكار والاستغفار",items:AD},{k:"j",t:"كنوز للجنة",items:JN});
+ g.push({k:"c",t:"أورادي ومهامي",items:S.custom.map(c=>[c.id,c.n,"",c.t])});return g}
+function ids(d){const o=[];PR.forEach(p=>{o.push([p[0]+"_f",1]);if(p[2])o.push([p[0]+"_b",1]);if(p[3])o.push([p[0]+"_a",1]);o.push([p[0]+"_k",1])});groups(d).forEach(g=>g.items.forEach(i=>o.push([i[0],i[3]])));return o}
+const val=(ts,id)=>(S.days[ts]||{})[id]||0;
+function score(d){const ts=ds(d),a=ids(d);let s=0;a.forEach(([id,t])=>s+=Math.min(val(ts,id)/t,1));return a.length?s/a.length:0}
+const pct=x=>Math.round(x*100);
+function setv(id,v){const ts=ds(date);(S.days[ts]=S.days[ts]||{})[id]=Math.max(0,v);save();try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}}
+function hijri(d){try{return new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(d)}catch(e){return""}}
+const gdate=d=>d.toLocaleDateString("ar",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+const e2=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function row(i,ts){const [id,n,sub,t]=i,v=val(ts,id),on=v>=t;
+ const r=t==1?`<div class="chk">${on?"✓":""}</div>`:`<div class="cnt"><i style="width:${Math.min(v/t,1)*100}%"></i><s>${v}/${t}</s></div>${v?`<button class="rs" data-a="r" data-i="${id}" aria-label="تصفير">↺</button>`:""}`;
+ return `<div class="row ${on?"on done":""}" data-a="${t==1?"c":"p"}" data-i="${id}" data-t="${t}"><div class="n">${e2(n)}${sub?`<small>${e2(sub)}</small>`:""}</div>${r}</div>`}
+function today(){const ts=ds(date),sc=score(date),C=2*Math.PI*36;
+ let h=`<div class="hero"><div class="ring"><svg width="84" height="84"><circle cx="42" cy="42" r="36" stroke="rgba(255,255,255,.25)" stroke-width="8" fill="none"/><circle cx="42" cy="42" r="36" stroke="#f3d27a" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-sc)}" style="transition:stroke-dashoffset .6s"/></svg><b>${pct(sc)}%</b></div><div><h1>محاسبة النفس</h1><small>زادُك اليومي للدار الآخرة</small></div></div>
+ <div class="datebar"><button data-a="d" data-i="-1">›</button><div><div class="g">${gdate(date)}</div><div class="h">${hijri(date)}</div></div><button data-a="d" data-i="1" ${ds(date)>=ds(new Date())?"disabled style=opacity:.4":""}>‹</button></div>`;
+ h+=`<div class="card"><h2>الصلوات <span>فريضة · سنن · ختام</span></h2><table><tr><th></th><th>الفريضة</th><th>قبلية</th><th>بعدية</th><th>الختام</th></tr>`;
+ PR.forEach(p=>{const c=(k,ok)=>ok?`<td><div class="chk" data-a="c" data-i="${p[0]}_${k}" data-t="1" style="${val(ts,p[0]+"_"+k)?"background:var(--em);border-color:var(--em)":""}">${val(ts,p[0]+"_"+k)?"✓":""}</div></td>`:`<td class="na">—</td>`;
+  h+=`<tr><td>${p[1]}</td>${c("f",1)}${c("b",p[2])}${c("a",p[3])}${c("k",1)}</tr>`});
+ h+=`</table></div>`;
+ groups(date).forEach(g=>{if(!g.items.length){if(g.k=="c")h+=`<div class="card"><h2>${g.t}</h2><small style="color:var(--mut)">أضف أورادك الخاصة من تبويب «أورادي».</small></div>`;return}
+  const dn=g.items.filter(i=>val(ts,i[0])>=i[3]).length;
+  h+=`<div class="card"><h2>${g.t}<span>${dn}/${g.items.length}</span></h2>${g.items.map(i=>row(i,ts)).join("")}</div>`});
+ const qq=Q[qi%Q.length];
+ h+=`<div class="quote" data-a="q"><p>${qq[0]}</p><small>${qq[1]} · اضغط لبطاقة جديدة</small></div>
+ <div class="card"><h2>خاطرة اليوم / محاسبة</h2><textarea id="note" rows="3" placeholder="ما الذي قصّرتُ فيه؟ وما الذي أحمد الله عليه؟">${e2((S.notes||{})[ts]||"")}</textarea></div>`;return h}
+function stats(){const t=new Date();let bars="",arr=[],act=0,tot=0,pr=0,qn=0,st=0,cur=true;
+ for(let i=29;i>=0;i--){const d=new Date(t);d.setDate(t.getDate()-i);const s=score(d);arr.push(s);if(s>0)act++;tot+=s;const D=S.days[ds(d)]||{};PR.forEach(p=>{if(D[p[0]+"_f"])pr++});if(D.q_read)qn++}
+ for(let i=arr.length-1;i>=0;i--){if(arr[i]>0.3&&cur)st++;else if(i<arr.length-1||arr[i]<=0.3)cur=false}
+ const wk=arr.slice(-7);const dn=["أحد","اثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+ bars=wk.map((s,i)=>{const d=new Date(t);d.setDate(t.getDate()-(6-i));return`<div><b>${pct(s)}%</b><u style="height:${Math.max(s*100,2)}%"></u>${dn[d.getDay()]}</div>`}).join("");
+ const wa=wk.reduce((a,b)=>a+b,0)/7;
+ return`<div class="hero"><div><h1>الإحصائيات والتقارير</h1><small>رحلتك في آخر ٣٠ يومًا</small></div></div>
+ <div class="card"><h2>الالتزام الأسبوعي <span>المتوسط ${pct(wa)}%</span></h2><div class="bars">${bars}</div></div>
+ <div class="grid"><div class="stat"><b>${act}</b><small>يوم نشِط</small></div><div class="stat"><b>${pct(tot/30)}%</b><small>متوسط الشهر</small></div><div class="stat"><b>${pr}</b><small>فرائض مؤدّاة (٣٠ يومًا)</small></div><div class="stat"><b>${st}</b><small>أيام متتالية (>٣٠٪)</small></div></div>
+ <div class="card"><h2>خريطة الشهر <span>الأغمق = الأعلى</span></h2><div class="heat">${arr.map(s=>`<i style="background:${s?`rgba(20,163,127,${.2+s*.8})`:""}"></i>`).join("")}</div></div>
+ <div class="card"><h2>القرآن</h2><small style="color:var(--mut)">قرأتَ وردك في ${qn} يومًا من آخر ٣٠ يومًا.</small></div>`}
+function custom(){return`<div class="hero"><div><h1>أورادي ومهامي</h1><small>أضف عبادات تخصّك</small></div></div>
+ <div class="card"><h2>إضافة ورد جديد</h2><input type="text" id="cn" placeholder="اسم الورد (مثال: صدقة، صلة رحم)"><input type="number" id="ct" min="1" value="1" placeholder="العدد المستهدف"><button class="pri" data-a="add">إضافة</button></div>
+ <div class="card"><h2>أوردتي <span>${S.custom.length}</span></h2>${S.custom.map(c=>`<div class="row" style="cursor:default"><div class="n">${e2(c.n)}<small>الهدف: ${c.t}</small></div><button class="rs" data-a="ed" data-i="${c.id}">✎</button><button class="rs" data-a="del" data-i="${c.id}">🗑</button></div>`).join("")||"<small style=color:var(--mut)>لا توجد أوراد بعد.</small>"}</div>`}
+function more(){return`<div class="hero"><div><h1>الإعدادات والنسخ الاحتياطي</h1><small>بياناتك على جهازك فقط</small></div></div>
+ <div class="card"><h2>المظهر</h2><div class="tools"><button class="btn" data-a="th" data-i="light">☀ فاتح</button><button class="btn" data-a="th" data-i="dark">🌙 مظلم</button><button class="btn" data-a="th" data-i="auto">تلقائي</button></div></div>
+ <div class="card"><h2>نسخ احتياطي واستعادة</h2><p style="color:var(--mut);margin:0 0 10px;font-size:14px">صدّر بياناتك بصيغة JSON واحتفظ بها، واستوردها عند تغيير المتصفح أو الهاتف.</p><div class="tools"><button class="pri" data-a="ex">تصدير</button><button class="btn" data-a="im">استيراد</button><button class="btn" data-a="wipe" style="color:#c0392b">مسح الكل</button></div><input type="file" id="imf" accept=".json,application/json" class="hide">${mem?'<p style="color:#c0392b;font-size:13px">تنبيه: التخزين غير متاح في هذا المتصفح، البيانات مؤقتة.</p>':""}</div>
+ <div class="card"><h2>تثبيت على الهاتف</h2><p style="color:var(--mut);font-size:14px;line-height:1.9;margin:0">افتح الملف في كروم ثم القائمة ⋮ ← «إضافة إلى الشاشة الرئيسية». يعمل بدون إنترنت. للتحويل إلى APK استخدم Capacitor أو PWABuilder مع هذا الملف كـ index.html.</p></div>`}
+function render(){const v={today,stats,custom,more}[tab]();$("#app").innerHTML=v;
+ $("#nav").innerHTML=[["today","☪","اليوم"],["stats","▥","الإحصائيات"],["custom","✚","أورادي"],["more","⚙","الإعدادات"]].map(t=>`<button class="${tab==t[0]?"a":""}" data-a="t" data-i="${t[0]}"><span>${t[1]}</span>${t[2]}</button>`).join("");
+ const n=$("#note");if(n)n.oninput=()=>{(S.notes=S.notes||{})[ds(date)]=n.value;save()};const f=$("#imf");if(f)f.onchange=imp}
+function theme(){const m=S.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=m;document.querySelector('meta[name=theme-color]').content=m=="dark"?"#0b1512":"#0d6b52"}
+function imp(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||typeof o.days!="object")throw 0;S=Object.assign({theme:null,custom:[],days:{},notes:{}},o);save();theme();render();alert("تمت الاستعادة بنجاح")}catch(x){alert("ملف غير صالح")}};r.readAsText(f)}
+document.addEventListener("click",e=>{const el=e.target.closest("[data-a]");if(!el)return;const a=el.dataset.a,i=el.dataset.i,t=+el.dataset.t;
+ if(a=="c"){setv(i,val(ds(date),i)?0:1);render()}
+ else if(a=="p"){const v=val(ds(date),i);setv(i,v>=t?0:v+1);render()}
+ else if(a=="r"){e.stopPropagation();setv(i,0);render()}
+ else if(a=="d"){const d=new Date(date);d.setDate(d.getDate()+ +i);if(ds(d)<=ds(new Date())){date=d;render()}}
+ else if(a=="t"){tab=i;render();scrollTo(0,0)}
+ else if(a=="q"){qi++;render()}
+ else if(a=="th"){S.theme=i=="auto"?null:i;save();theme()}
+ else if(a=="add"){const n=$("#cn").value.trim(),c=Math.max(1,parseInt($("#ct").value)||1);if(!n)return;S.custom.push({id:"u_"+Date.now(),n,t:c});save();render()}
+ else if(a=="del"){if(confirm("حذف هذا الورد؟")){S.custom=S.custom.filter(c=>c.id!=i);save();render()}}
+ else if(a=="ed"){const c=S.custom.find(c=>c.id==i),n=prompt("اسم الورد",c.n);if(n){c.n=n;c.t=Math.max(1,parseInt(prompt("العدد المستهدف",c.t))||c.t);save();render()}}
+ else if(a=="ex"){const j=JSON.stringify(S,null,1),fn="muhasaba-backup-"+ds(new Date())+".json";if(window.Android){Android.save(fn,j)}else{const u=URL.createObjectURL(new Blob([j],{type:"application/json"})),l=document.createElement("a");l.href=u;l.download=fn;l.click();setTimeout(()=>URL.revokeObjectURL(u),2000)}}
+ else if(a=="im")$("#imf").click();
+ else if(a=="wipe"){if(confirm("سيتم حذف كل بياناتك نهائيًا. متأكد؟")){S={theme:S.theme,custom:[],days:{},notes:{}};save();render()}}
+});
+theme();render();
+</script>
+</body>
+</html>
